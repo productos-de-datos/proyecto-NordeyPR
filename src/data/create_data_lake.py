@@ -29,7 +29,7 @@ def create_data_lake():
 
     ```
 
-    >>>create_data_lake()
+    >>> create_data_lake()
     """
     import os 
     data_lake = [
