@@ -4,10 +4,7 @@ Módulo de ingestión de datos.
 -Para la ingesta de datos, nos apoyamos con la libreria urllib
 -Se usa Try sino se descargan los archivos XLSX para intentar con XLS
 """
-from ast import Try
-from distutils.log import Log
-import logging
-from urllib import request
+
 
 
 def ingest_data():
@@ -19,10 +16,13 @@ def ingest_data():
     descarga debe realizarse usando únicamente funciones de Python.
     >>> ingest_data()
     """
-    import urllib.request
+    
     import datetime
-    import logging
     from os import remove
+    from ast import Try
+    from distutils.log import Log
+    import logging
+    from urllib import request
 
     
     fecha = datetime.datetime.now()
@@ -61,7 +61,7 @@ def ingest_data():
 
    
     
-    raise NotImplementedError("Implementar esta función")
+    #raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":

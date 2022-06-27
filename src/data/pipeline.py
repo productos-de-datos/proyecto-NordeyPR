@@ -48,10 +48,10 @@ class Reportes(Task):
 
 if __name__ == "__main__":
 
-    raise NotImplementedError("Implementar esta función")
+    luigi.run(["Reportes", "--local-scheduler"])
 
 if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-    luigi.run(["Reportes", "--local-scheduler"])
+    

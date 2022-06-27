@@ -26,7 +26,7 @@ def compute_monthly_prices():
     # Guardar el archivo csv
     data.to_csv("data_lake/business/precios-mensuales.csv", index=True)
     
-    raise NotImplementedError("Implementar esta función")
+    #raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":

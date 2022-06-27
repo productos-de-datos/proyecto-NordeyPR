@@ -17,7 +17,7 @@ def make_features():
     shutil.copy('data_lake/business/precios-diarios.csv',
                 'data_lake/business/features/precios-diarios.csv')
 
-    raise NotImplementedError("Implementar esta función")
+    #raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":

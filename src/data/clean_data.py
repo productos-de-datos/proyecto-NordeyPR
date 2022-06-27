@@ -71,7 +71,7 @@ def clean_data():
     contenidoCSVMerged.to_csv("data_lake/cleansed/precios-horarios.csv", index=False)
     
 
-    raise NotImplementedError("Implementar esta función")
+    #raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":
