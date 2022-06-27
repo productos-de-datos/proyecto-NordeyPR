@@ -1,13 +1,10 @@
 '''
 # se crea una lista por cada carpeta raíz de la estructura
-# se crea la carpeta data_lake
-# se crea cada carpeta dentro de data_lake
+# creación carpeta data_lake
+# creación de cada carpeta dentro de data_lake
 
 
 '''
-
-
-
 def create_data_lake():
     """Cree el data lake con sus capas.
 
@@ -29,7 +26,7 @@ def create_data_lake():
 
     ```
 
-    >>>create_data_lake()
+    >>> create_data_lake()
     """
     import os 
     data_lake = [
@@ -59,3 +56,4 @@ if __name__ == "__main__":
     import doctest
     
     doctest.testmod()
+    
