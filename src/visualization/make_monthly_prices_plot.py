@@ -1,5 +1,4 @@
 
-from matplotlib.pyplot import grid, title
 
 def make_monthly_prices_plot():
     """Crea un grafico de lines que representa los precios promedios diarios.
