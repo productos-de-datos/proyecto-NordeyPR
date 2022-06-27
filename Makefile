@@ -4,6 +4,8 @@
 .PHONY: clean_data
 .PHONY: compute_daily_prices
 .PHONY: pipeline
+.PHONY: make_daily_prices_plot
+.PHONY: make_monthly_prices_plot
 .PHONY: make_features
 .PHONY: train_model
 
