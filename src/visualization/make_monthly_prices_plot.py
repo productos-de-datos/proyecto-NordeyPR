@@ -20,12 +20,12 @@ def make_monthly_prices_plot():
         kind="line",
         x="Fecha",
         y="Precio",
-        title="Precio Promedio Histórico Diario",
+        title="Precio Promedio Histórico Mensual",
         grid=True,
         figsize=(10, 5),
     ).get_figure()
 
-    figura.savefig("data_lake/business/reports/figures/daily_prices.png")
+    figura.savefig("data_lake/business/reports/figures/monthly_prices.png")
 
 
 if __name__ == "__main__":
