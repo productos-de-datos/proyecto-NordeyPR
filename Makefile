@@ -29,7 +29,13 @@ pipeline:
 	rm -rf data_lake
 	python3 src/data/create_data_lake.py
 	python3 src/data/pipeline.py
+	
+plot_daily_prices:
+	python3 src/visualization/make_daily_prices_plot.py
 
+plot_monthly_prices:
+	python3 src/visualization/make_monthly_prices_plot.py
+	
 make_features:
 	python3 src/features/make_features.py
 
