@@ -14,8 +14,7 @@ def make_features():
     """
     import shutil
 
-    shutil.copy('data_lake/business/precios-diarios.csv',
-                'data_lake/business/features/precios-diarios.csv')
+    shutil.copy('data_lake/business/precios-diarios.csv','data_lake/business/features/precios_diarios.csv')
 
     #raise NotImplementedError("Implementar esta función")
 
