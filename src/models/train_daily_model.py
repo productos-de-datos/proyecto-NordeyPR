@@ -6,7 +6,7 @@ def train_daily_model():
 
     >>> train_daily_model()
     
-     import subprocess
+    import subprocess
     import numpy as np
     import pandas as pd
     import datetime
