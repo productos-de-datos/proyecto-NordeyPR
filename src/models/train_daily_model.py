@@ -7,7 +7,7 @@ def train_daily_model():
     >>> train_daily_model()
     
     """
-     import pandas as pd
+    import pandas as pd
 
     in_path = 'data_lake/business/features/precios_diarios.csv'
     data = pd.read_csv(in_path, sep=",")
