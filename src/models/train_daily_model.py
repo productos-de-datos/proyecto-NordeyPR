@@ -5,6 +5,7 @@ def train_daily_model():
     salvelo en models/precios-diarios.pkl
 
     >>> train_daily_model()
+    
     """
     #raise NotImplementedError("Implementar esta función")
 
