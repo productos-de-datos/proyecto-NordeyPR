@@ -61,7 +61,7 @@ def save_model(model_RF):
 
     import pickle
 
-    with open("src/models/precios-diarios.pkl", "wb") as file:
+    with open("src/models/precios-diarios.pickle", "wb") as file:
         pickle.dump(model_RF, file,  pickle.HIGHEST_PROTOCOL)
 
 
@@ -83,4 +83,4 @@ if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-    
+    train_daily_model()
