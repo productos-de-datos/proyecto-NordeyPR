@@ -7,7 +7,7 @@
 .PHONY: make daily_prices_plot
 .PHONY: make monthly_prices_plot
 .PHONY: make_features
-.PHONY: train_daily_model
+.PHONY: train_model
 .PHONY: make_forecasts
 
 create_data_lake:
@@ -42,7 +42,7 @@ plot_monthly_prices:
 make_features:
 	python3 src/features/make_features.py
 
-train_daily_model:
+train_model:
 	python3 src/models/train_daily_model.py
 
 make_forecasts:
