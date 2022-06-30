@@ -1,12 +1,9 @@
 def train_daily_model():
     """Entrena el modelo de pronóstico de precios diarios.
-
     Con las features entrene el modelo de proóstico de precios diarios y
     salvelo en models/precios-diarios.pkl
-
     >>> train_daily_model()
     """
-    
     import subprocess
     import numpy as np
     import pandas as pd
@@ -26,7 +23,7 @@ def train_daily_model():
     from skforecast.model_selection import grid_search_forecaster
     from skforecast.model_selection import backtesting_forecaster
 
-    # os.chdir("./")
+    
 
     datos = pd.read_csv("data_lake/business/features/precios_diarios.csv")
     datos["Fecha"] = pd.to_datetime(datos["Fecha"], format="%Y-%m-%d")
@@ -95,8 +92,8 @@ def train_daily_model():
     with open("src/models/precios-diarios.pkl", "wb") as f:
         pickle.dump(forecaster, f)
 
+
 if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
-    
