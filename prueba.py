@@ -11,7 +11,7 @@ def test_make_features():
     """Comprobar que make_features() funciona correctamente."""
 
     make_features()
-    assert os.path.isfile("data_lake/business/features/precios-diarios.csv") is True
+    assert os.path.isfile("data_lake/business/features/precios_diarios.csv") is True
 
 
 def test_compute_daily_prices():
