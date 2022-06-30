@@ -27,7 +27,7 @@ def train_daily_model():
 
     # os.chdir("./")
 
-    datos = pd.read_csv("data_lake/business/features/precios-diarios.csv")
+    datos = pd.read_csv("data_lake/business/features/precios_diarios.csv")
     datos["Fecha"] = pd.to_datetime(datos["Fecha"], format="%Y-%m-%d")
     datos["Día Semana"] = datos["Fecha"].dt.strftime("%A")
 
