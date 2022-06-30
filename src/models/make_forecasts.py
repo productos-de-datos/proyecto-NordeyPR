@@ -20,7 +20,7 @@ def make_forecasts():
 
     modelo = cargar_modelo()
 
-    datos = pd.read_csv("data_lake/business/features/precios-diarios.csv")
+    datos = pd.read_csv("data_lake/business/features/precios_diarios.csv")
     datos["Fecha"] = pd.to_datetime(datos["Fecha"], format="%Y-%m-%d")
     datos = datos.set_index("Fecha")
     datos = datos.asfreq("D")
