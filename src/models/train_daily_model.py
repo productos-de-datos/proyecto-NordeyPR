@@ -91,7 +91,7 @@ def train_daily_model():
     )
 
     # se guarda el modelo en un archivo pickle para poder ser utilizado
-    with open("precios-diarios.pickle", "wb") as f:
+    with open("precios-diarios.pkl", "wb") as f:
         pickle.dump(resultados_grid.best_estimator_, f)
 
 if __name__ == "__main__":
