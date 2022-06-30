@@ -10,11 +10,21 @@ def make_features():
 
     En la carpeta notebooks/ cree los notebooks de jupyter necesarios para
     analizar y determinar las variables explicativas del modelo.
+    
+    Args:
+        None
+    Returns:
+    
     >>> make_features()
     """
+    
     import shutil
+    import os
+    
+    os.chdir("./")
 
-    shutil.copy('data_lake/business/precios-diarios.csv','data_lake/business/features/precios_diarios.csv')
+    shutil.copy("data_lake/business/precios-diarios.csv",
+                "data_lake/business/features/precios_diarios.csv")
 
     #raise NotImplementedError("Implementar esta función")
 
