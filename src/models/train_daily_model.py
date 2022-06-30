@@ -25,7 +25,7 @@ def train_daily_model():
     from skforecast.model_selection import grid_search_forecaster
     from skforecast.model_selection import backtesting_forecaster
 
-    os.chdir("./")
+    # os.chdir("./")
 
     datos = pd.read_csv("data_lake/business/features/precios-diarios.csv")
     datos["Fecha"] = pd.to_datetime(datos["Fecha"], format="%Y-%m-%d")
@@ -67,7 +67,7 @@ def train_daily_model():
     )
 
     forecaster = ForecasterAutoreg(
-        regressor=make_pipeline(StandardScaler(), Ridge()), lags=24
+        regressor=make_pipeline(StandardScaler(), Ridge()), lags=1
     )
 
     # Lags utilizados como predictores
@@ -91,8 +91,8 @@ def train_daily_model():
     )
 
     # se guarda el modelo en un archivo pickle para poder ser utilizado
-    with open("precios-diarios.pkl", "wb") as f:
-        pickle.dump(resultados_grid.best_estimator_, f)
+    with open("src/models/precios-diarios.pkl", "wb") as f:
+        pickle.dump(forecaster, f)
 
 if __name__ == "__main__":
     import doctest
