@@ -1,99 +1,79 @@
+def load_data():
+
+    import pandas as pd
+
+    in_path = 'data_lake/business/features/precios_diarios.csv'
+    data = pd.read_csv(in_path, sep=",")
+
+    return data
+
+
+def data_preparation(data):
+    import pandas as pd
+    df = data.copy()
+    df['fecha'] = pd.to_datetime(df['fecha'], format='%Y-%m-%d')
+    df['year'], df['month'], df['day'] = df['fecha'].dt.year, df['fecha'].dt.month, df['fecha'].dt.day
+
+    y = df["precio"]
+    x = df.copy()
+    x.pop("precio")
+    x.pop("fecha")
+    return x, y
+
+
+def make_train_test_split(x, y):
+
+    from sklearn.model_selection import train_test_split
+
+    (x_train, x_test, y_train, y_test) = train_test_split(
+        x,
+        y,
+        test_size=0.25,
+        random_state=12345,
+    )
+    return x_train, x_test, y_train, y_test
+
+
+def trein_model(x_train, x_test):
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.ensemble import RandomForestRegressor
+
+    # Se Define el algoritmo a utilizar
+    scaler = StandardScaler()
+    scaler.fit(x_train)
+    x_train = scaler.transform(x_train)
+    x_test = scaler.transform(x_test)
+
+    # Se establece el Modelo
+    model_RF = RandomForestRegressor(n_jobs=-1)
+
+    return model_RF
+
+
+def save_model(model_RF):
+
+    import pickle
+
+    with open("src/models/precios-diarios.pickle", "wb") as file:
+        pickle.dump(model_RF, file,  pickle.HIGHEST_PROTOCOL)
+
+
 def train_daily_model():
     """Entrena el modelo de pronóstico de precios diarios.
     Con las features entrene el modelo de proóstico de precios diarios y
     salvelo en models/precios-diarios.pkl
-    >>> train_daily_model()
     """
-    import subprocess
-    import numpy as np
-    import pandas as pd
-    import datetime
-    import os
-    import pickle
+    data = load_data()
+    x, y = data_preparation(data)
+    x_train, x_test, y_train, y_test = make_train_test_split(x, y)
+    model_RF = trein_model(x_train, x_test)
+    save_model(model_RF)
 
-    subprocess.call(["pip", "install", "holidays"])
-    subprocess.call(["pip", "install", "sklearn"])
-    subprocess.call(["pip", "install", "skforecast"])
-
-    import holidays
-    from sklearn.linear_model import Ridge
-    from sklearn.pipeline import make_pipeline
-    from sklearn.preprocessing import StandardScaler
-    from skforecast.ForecasterAutoreg import ForecasterAutoreg
-    from skforecast.model_selection import grid_search_forecaster
-    from skforecast.model_selection import backtesting_forecaster
-
-    
-
-    datos = pd.read_csv("data_lake/business/features/precios_diarios.csv")
-    datos["Fecha"] = pd.to_datetime(datos["Fecha"], format="%Y-%m-%d")
-    datos["Día Semana"] = datos["Fecha"].dt.strftime("%A")
-
-    fecha = datetime.datetime.now()
-
-    total_anios = fecha.year - 1995
-
-    # Creacion de secuencia a partir de 1995
-    anios = list(range(1995, 1995 + total_anios, 1))
-
-    co_holidays = holidays.Colombia(years=anios)
-    datos["Festivo"] = datos["Fecha"].isin(co_holidays)
-
-    datos = datos.set_index("Fecha")
-    datos = datos.asfreq("D")
-    datos = datos.sort_index()
-
-    datos_backtest = 365 * 20
-    datos_train = datos[:-datos_backtest]
-    datos_test = datos[-datos_backtest:]
-
-    forecaster = ForecasterAutoreg(
-        regressor=make_pipeline(StandardScaler(), Ridge()), lags=1
-    )
-
-    forecaster.fit(y=datos_train["Precio"])
-
-    metrica, predicciones = backtesting_forecaster(
-        forecaster=forecaster,
-        y=datos.Precio,
-        initial_train_size=len(datos_train),
-        fixed_train_size=False,
-        steps=1,
-        metric="mean_absolute_error",
-        refit=False,
-        verbose=True,
-    )
-
-    forecaster = ForecasterAutoreg(
-        regressor=make_pipeline(StandardScaler(), Ridge()), lags=1
-    )
-
-    # Lags utilizados como predictores
-    lags_grid = [5, 24, [1, 2, 3, 23, 24, 25, 47, 48, 49]]
-
-    # Hiperparámetros del regresor
-    param_grid = {"ridge__alpha": np.logspace(-3, 5, 10)}
-
-    resultados_grid = grid_search_forecaster(
-        forecaster=forecaster,
-        y=datos_test["Precio"],
-        param_grid=param_grid,
-        lags_grid=lags_grid,
-        steps=1,
-        metric="mean_absolute_error",
-        refit=False,
-        initial_train_size=datos_train.size,
-        fixed_train_size=False,
-        return_best=True,
-        verbose=False,
-    )
-
-    # se guarda el modelo en un archivo pickle para poder ser utilizado
-    with open("src/models/precios-diarios.pkl", "wb") as f:
-        pickle.dump(forecaster, f)
+    #raise NotImplementedError("Implementar esta función")
 
 
 if __name__ == "__main__":
     import doctest
 
     doctest.testmod()
+    train_daily_model()
