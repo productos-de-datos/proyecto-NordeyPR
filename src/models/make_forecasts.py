@@ -74,7 +74,7 @@ def make_forecasts():
 
         df_model_RF = pd.concat([df_model_RF, df_series], axis=1)
 
-        data = data[['fecha']]
+        data = data[['Fecha']]
         data.reset_index(inplace=True)
 
         df_model_RF = pd.merge(df_model_RF, data, on='index', how='left')
