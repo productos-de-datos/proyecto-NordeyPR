@@ -11,13 +11,13 @@ def load_data():
 def data_preparation(data):
     import pandas as pd
     df = data.copy()
-    df['fecha'] = pd.to_datetime(df['fecha'], format='%Y-%m-%d')
-    df['year'], df['month'], df['day'] = df['fecha'].dt.year, df['fecha'].dt.month, df['fecha'].dt.day
+    df['Fecha'] = pd.to_datetime(df['Fecha'], format='%Y-%m-%d')
+    df['year'], df['month'], df['day'] = df['Fecha'].dt.year, df['Fecha'].dt.month, df['Fecha'].dt.day
 
-    y = df["precio"]
+    y = df["Precio"]
     x = df.copy()
-    x.pop("precio")
-    x.pop("fecha")
+    x.pop("Precio")
+    x.pop("Fecha")
     return x, y
 
 
