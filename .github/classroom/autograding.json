@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "Test 01",
-      "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas luigi pytest xlrd xlwt openpyxl pylint",
       "run": "python3 grader.py 01",
       "input": "",
       "output": "",
@@ -12,7 +12,7 @@
     },
     {
       "name": "Test 02",
-      "setup": "pip3 install matplotlib sklearn pandas openpyxl xlrd xlwt xlsxwriter luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint xlrd xlwt openpyxl",
       "run": "python3 grader.py 02",
       "input": "",
       "output": "",
@@ -22,7 +22,7 @@
     },
     {
       "name": "Test 03",
-      "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas luigi pytest nbformat xlrd xlwt openpyxl pylint",
       "run": "python3 grader.py 03",
       "input": "",
       "output": "",
@@ -62,7 +62,7 @@
     },
     {
       "name": "Test 07",
-      "setup": "pip3 install matplotlib sklearn pandas openpyxl xlrd xlwt xlsxwriter luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint openpyxl xlrd xlwt xlsxwriter nbformat",
       "run": "python3 grader.py 07",
       "input": "",
       "output": "",
@@ -102,7 +102,7 @@
     },
     {
       "name": "Test 11",
-      "setup": "pip3 install matplotlib sklearn pandas numpy luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint pmdarima",
       "run": "python3 grader.py 11",
       "input": "",
       "output": "",
@@ -112,7 +112,7 @@
     },
     {
       "name": "Test 12",
-      "setup": "pip3 install matplotlib sklearn pandas numpy luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint",
       "run": "python3 grader.py 12",
       "input": "",
       "output": "",
@@ -133,7 +133,7 @@
     {
       "name": "Test 14",
       "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint",
-      "run": "pytest prueba.py",
+      "run": "pytest src/data/transform_data.py",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -173,7 +173,7 @@
     {
       "name": "Test 18",
       "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint",
-      "run": "rm -rf data_lake | python3 src/data/create_data_lake.py",
+      "run": "python3 src/data/create_data_lake.py",
       "input": "",
       "output": "",
       "comparison": "included",
@@ -232,7 +232,7 @@
     },
     {
       "name": "Test 24",
-      "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint",
+      "setup": "pip3 install matplotlib sklearn pandas luigi pytest pylint pmdarima",
       "run": "python3 src/models/train_daily_model.py",
       "input": "",
       "output": "",
