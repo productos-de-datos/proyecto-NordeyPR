@@ -1,76 +1,43 @@
-def load_data():
+import pandas as pd
+from pmdarima import auto_arima
+from statsmodels.tsa.statespace.sarimax import SARIMAX
 
-    import pandas as pd
-
-    in_path = 'data_lake/business/features/precios_diarios.csv'
-    data = pd.read_csv(in_path, sep=",")
-
-    return data
-
-
-def data_preparation(data):
-    import pandas as pd
-    df = data.copy()
-    df['Fecha'] = pd.to_datetime(df['Fecha'], format='%Y-%m-%d')
-    df['year'], df['month'], df['day'] = df['Fecha'].dt.year, df['Fecha'].dt.month, df['Fecha'].dt.day
-
-    y = df["Precio"]
-    x = df.copy()
-    x.pop("Precio")
-    x.pop("Fecha")
-    return x, y
-
-
-def make_train_test_split(x, y):
-
-    from sklearn.model_selection import train_test_split
-
-    (x_train, x_test, y_train, y_test) = train_test_split(
-        x,
-        y,
-        test_size=0.25,
-        random_state=12345,
-    )
-    return x_train, x_test, y_train, y_test
-
-
-def trein_model(x_train, x_test):
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.ensemble import RandomForestRegressor
-
-    # Se Define el algoritmo a utilizar
-    scaler = StandardScaler()
-    scaler.fit(x_train)
-    x_train = scaler.transform(x_train)
-    x_test = scaler.transform(x_test)
-
-    # Se establece el Modelo
-    model_RF = RandomForestRegressor(n_jobs=-1)
-
-    return model_RF
-
-
-def save_model(model_RF):
-
-    import pickle
-
-    with open("src/models/precios-diarios.pickle", "wb") as file:
-        pickle.dump(model_RF, file,  pickle.HIGHEST_PROTOCOL)
-
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split 
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 
 def train_daily_model():
     """Entrena el modelo de pronóstico de precios diarios.
     Con las features entrene el modelo de proóstico de precios diarios y
     salvelo en models/precios-diarios.pkl
     """
-    data = load_data()
-    x, y = data_preparation(data)
-    x_train, x_test, y_train, y_test = make_train_test_split(x, y)
-    model_RF = trein_model(x_train, x_test)
-    save_model(model_RF)
+    daily_data = read_data()
+    train, valid = spliting_data(daily_data)
+    DT_model = trained_model(train)
+    save_model_train(DT_model)
 
-    #raise NotImplementedError("Implementar esta función")
+def read_data():
+    daily_data = pd.read_csv('data_lake/business/features/precios_diarios.csv', index_col=None, header=0)
+    daily_data['Fecha'] = pd.to_datetime(daily_data['Fecha'])
+    daily_data.index = daily_data.Fecha
+    return daily_data
 
+def spliting_data(daily_data):
+    # split data to train and test
+    train = daily_data[:int(0.85*len(daily_data))]
+    valid = daily_data[int(0.85*(len(daily_data))):]
+    return train, valid
+    
+def trained_model(train):
+    DT_model = SARIMAX(train['Precio'], order = (4, 1, 5), seasonal_order =(0, 0, 0, 0))
+    result_model = DT_model.fit()
+    return result_model
+
+def save_model_train(modelo):
+    import pickle
+    with open("src/models/precios-diarios.pkl", "wb") as file:
+        pickle.dump(modelo, file,  pickle.HIGHEST_PROTOCOL)
 
 if __name__ == "__main__":
     import doctest
